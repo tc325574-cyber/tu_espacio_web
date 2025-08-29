@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Espacio - Apoyo Emocional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f4e9, #f0e6d8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #554C47;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, #8C6A5A, #d3cabf);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #8C6A5A;
+            font-size: 2.2rem;
+            text-align: center;
+        }
+
+        .breathing-toggle {
+            background: linear-gradient(135deg, #8C6A5A, #72584D);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .breathing-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(140, 106, 90, 0.3);
+        }
+
+        .subtitle {
+            color: #A09489;
+            margin-bottom: 25px;
+            text-align: center;
+            font-style: italic;
+            font-size: 1.2rem;
+            line-height: 1.5;
+        }
+
+        /* Estilos para el modal de respiración */
+        .breathing-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .breathing-content {
+            background: linear-gradient(135deg, #f8f4e9, #f0e6d8);
+            padding: 40px;
+            border-radius: 25px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+
+        .breathing-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #8C6A5A;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .breathing-close:hover {
+            background: rgba(140, 106, 90, 0.1);
+        }
+
+        .breathing-title {
+            color: #8C6A5A;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .breathing-subtitle {
+            color: #A09489;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .technique-selector {
+            margin-bottom: 30px;
+        }
+
+        .technique-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .technique-btn {
+            background: #D3CABF;
+            color: #5A4E45;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .technique-btn:hover,
+        .technique-btn.active {
+            background: #8C6A5A;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .breathing-circle-container {
+            width: 250px;
+            height: 250px;
+            margin: 30px auto;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .breathing-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(140, 106, 90, 0.3), rgba(140, 106, 90, 0.6));
+            transition: all 0.3s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 0 30px rgba(140, 106, 90, 0.3);
+        }
+
+        .breathing-circle.inhale {
+            transform: scale(1.4);
+            background: radial-gradient(circle, rgba(140, 106, 90, 0.5), rgba(140, 106, 90, 0.8));
+        }
+
+        .breathing-circle.exhale {
+            transform: scale(0.7);
+            background: radial-gradient(circle, rgba(140, 106, 90, 0.2), rgba(140, 106, 90, 0.4));
+        }
+
+        .breathing-text {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .breathing-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            background: linear-gradient(135deg, #8C6A5A, #72584D);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(140, 106, 90, 0.3);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .breathing-info {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            color: #5A4E45;
+        }
+
+        .breathing-counter {
+            font-size: 1.2rem;
+            color: #8C6A5A;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        #chat-history {
+            background-color: #F8F5F0;
+            padding: 25px;
+            border-radius: 18px;
+            margin-bottom: 25px;
+            max-height: 400px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            border: 1px solid #e5dfd5;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .user-message, .bot-message {
+            padding: 18px;
+            border-radius: 20px;
+            max-width: 85%;
+            word-wrap: break-word;
+            line-height: 1.6;
+            position: relative;
+            padding-right: 60px;
+            animation: fadeIn 0.4s ease-out;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .user-message {
+            background: linear-gradient(135deg, #EDE8E2, #e0d8cf);
+            color: #4A403A;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .bot-message {
+            background: linear-gradient(135deg, #D3CABF, #c8b9a8);
+            color: #5A4E45;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .bot-message.reading {
+            background: linear-gradient(135deg, #8C6A5A, #7a5a4a);
+            color: white;
+            box-shadow: 0 0 15px rgba(140, 106, 90, 0.4);
+        }
+
+        .message-text {
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        .speak-icon {
+            position: absolute;
+            right: 15px;
+            bottom: 15px;
+            color: #8C6A5A;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: all 0.3s;
+            font-size: 18px;
+            background: rgba(255, 255, 255, 0.7);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .speak-icon:hover {
+            opacity: 1;
+            transform: scale(1.1);
+            background: #8C6A5A;
+            color: white;
+        }
+
+        .bot-message.reading .speak-icon {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .input-container {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        #prompt-input {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.1rem;
+            border: 2px solid #E5E1DB;
+            border-radius: 15px;
+            resize: none;
+            transition: all 0.3s;
+            background: #fcfaf6;
+            min-height: 120px;
+        }
+
+        #prompt-input:focus {
+            border-color: #8C6A5A;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(140, 106, 90, 0.2);
+        }
+
+        #send-button {
+            width: 100%;
+            padding: 16px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(135deg, #8C6A5A, #72584D);
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 5px 15px rgba(140, 106, 90, 0.3);
+        }
+
+        #send-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(140, 106, 90, 0.4);
+        }
+
+        #send-button:active {
+            transform: translateY(1px);
+        }
+
+        .loading-dots {
+            display: none;
+            gap: 8px;
+        }
+
+        .loading-dots .dot {
+            width: 10px;
+            height: 10px;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .loading-dots .dot:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dots .dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
+
+        .loading #send-button {
+            pointer-events: none;
+        }
+
+        .loading .loading-dots {
+            display: flex;
+        }
+
+        .loading #send-button span {
+            display: none;
+        }
+
+        .message-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            color: #8C6A5A;
+            opacity: 0.7;
+        }
+
+        /* Scrollbar personalizada */
+        #chat-history::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #chat-history::-webkit-scrollbar-track {
+            background: #f1e9e0;
+            border-radius: 4px;
+        }
+
+        #chat-history::-webkit-scrollbar-thumb {
+            background: #c8b9a8;
+            border-radius: 4px;
+        }
+
+        #chat-history::-webkit-scrollbar-thumb:hover {
+            background: #8C6A5A;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            #prompt-input {
+                min-height: 100px;
+            }
+            
+            .user-message, .bot-message {
+                max-width: 90%;
+                padding: 15px;
+                padding-right: 50px;
+            }
+
+            .breathing-content {
+                padding: 30px 20px;
+            }
+
+            .breathing-circle-container {
+                width: 200px;
+                height: 200px;
+            }
+
+            .breathing-circle {
+                width: 150px;
+                height: 150px;
+            }
+
+            .technique-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .breathing-controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-container">
+            <h1>Tu Espacio</h1>
+            <button class="breathing-toggle" id="breathing-btn">
+                <i class="fas fa-leaf"></i>
+                Respiración
+            </button>
+        </div>
+        
+        <p class="subtitle">Estoy aquí para escucharte sin juicios. ¿Cómo te sientes hoy?</p>
+        
+        <div id="chat-history">
+            <div class="bot-message">
+                <span class="message-text">Hola, soy Serena. Estoy aquí para escucharte y apoyarte emocionalmente. Puedes contarme cómo te sientes y tendré el gusto de responder. Si necesitas tranquilizarte, también puedo guiarte con ejercicios de respiración.</span>
+                <div class="speak-icon" title="Escuchar mensaje"><i class="fas fa-volume-up"></i></div>
+                <div class="message-info">Serena · Justo ahora</div>
+            </div>
+        </div>
+        
+        <div class="input-container">
+            <textarea id="prompt-input" placeholder="Escribe aquí cómo te sientes..."></textarea>
+        </div>
+        
+        <button id="send-button">
+            <span>Enviar mensaje</span>
+            <div class="loading-dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </button>
+    </div>
+
+    <!-- Modal de respiración -->
+    <div class="breathing-modal" id="breathing-modal">
+        <div class="breathing-content">
+            <button class="breathing-close" id="breathing-close">&times;</button>
+            
+            <h2 class="breathing-title">Ejercicios de Respiración</h2>
+            <p class="breathing-subtitle">Encuentra tu calma interior</p>
+            
+            <div class="technique-selector">
+                <div class="technique-buttons">
+                    <button class="technique-btn active" data-technique="4-7-8">4-7-8 (Relajante)</button>
+                    <button class="technique-btn" data-technique="box">Respiración Cuadrada</button>
+                    <button class="technique-btn" data-technique="coherent">Respiración Coherente</button>
+                    <button class="technique-btn" data-technique="triangle">Respiración Triangular</button>
+                </div>
+            </div>
+
+            <div class="breathing-info" id="technique-info">
+                <strong>Respiración 4-7-8</strong><br>
+                Inhala por 4 segundos, mantén por 7, exhala por 8. Perfecto para reducir la ansiedad y conciliar el sueño.
+            </div>
+            
+            <div class="breathing-circle-container">
+                <div class="breathing-circle" id="breathing-circle">
+                    <div class="breathing-text" id="breathing-instruction">Presiona Iniciar</div>
+                </div>
+            </div>
+
+            <div class="breathing-counter" id="breathing-counter">Ciclos completados: 0</div>
+            
+            <div class="breathing-controls">
+                <button class="control-btn" id="start-breathing">
+                    <i class="fas fa-play"></i>
+                    Iniciar
+                </button>
+                <button class="control-btn" id="pause-breathing" disabled>
+                    <i class="fas fa-pause"></i>
+                    Pausar
+                </button>
+                <button class="control-btn" id="reset-breathing">
+                    <i class="fas fa-stop"></i>
+                    Reiniciar
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // API KEY de Google Gemini - Reemplaza con tu propia API key
+        const API_KEY = 'AIzaSyAiHrzXzi63VSM0DA-v_4ZzwV4ZHIASYiI';
+        
+        // Instrucción del sistema para el asistente
+        const SYSTEM_INSTRUCTION = `Eres un asistente de apoyo emocional llamado Serena. Tu rol es un primer respondedor con la sabiduría y experiencia de 40 años, fusionando un enfoque profundo y honesto, una cercanía informal y una visión de inclusión. Eres una guía para el usuario. Tu objetivo es conectar, validar y usar el siguiente conocimiento para ofrecer una perspectiva única.
+
+        ### Recursos de Estilo y Conocimiento
+
+        #### **1. Perspectiva Profunda y Honesta (Gabriel Rolón)**
+        * **Filosofía Central:** El psicoanálisis como herramienta para desenterrar los motivos del sufrimiento. La vida es una sucesión de duelos y el dolor es inevitable. El amor es una construcción, no una posesión.
+        * **Temas Clave:** El fracaso como angustia, la culpa, el deseo, la infidelidad, el desamor.
+        * **Estilo de Comunicación:** Tono directo, honesto y a veces confrontacional. Usa metáforas, relatos y anécdotas para explicar conceptos complejos.
+        * **Frases y Conceptos:**
+            * "La felicidad no es un estado, sino instantes."
+            * "El problema no es que nos pase algo, sino lo que hacemos con eso que nos pasa."
+            * "El fracaso es el momento en que la imagen que tenemos de nosotros mismos se rompe contra el muro de la realidad."
+            * "El amor es la pasión por la singularidad."
+            * "El duelo es un proceso necesario que duele y nos marca."
+
+        #### **2. Perspectiva Cercana e Informal (Jeremías Aisenberg)**
+        * **Filosofía Central:** La psicología es para todos, no solo para la patología. Aboga por un enfoque cercano, sin tecnicismos ni solemnidad, para que la gente se conecte con sus emociones.
+        * **Temas Clave:** La autenticidad, la relación con uno mismo, la comunicación en pareja y el desarrollo personal.
+        * **Estilo de Comunicación:** Tono informal, descontracturado y con un toque de humor. Usa un lenguaje cotidiano y accesible.
+        * **Frases y Conceptos:**
+            * "Está bien no estar bien."
+            * "A veces el mejor abrazo que te puedes dar es el que te das a vos mismo."
+            * "No podemos elegir lo que nos pasa, pero sí podemos elegir qué hacemos con lo que nos pasa."
+            * "El amor no te rescata, te acompaña."
+            * "La autenticidad es un trabajo de todos los días."
+
+        #### **3. Perspectiva de Inclusión y Neurodiversidad (Ramiro Mitre)**
+        * **Filosofía Central:** Las diferencias cerebrales y mentales son variaciones naturales de la diversidad humana. El problema no está en la persona, sino en un sistema que no está diseñado para incluirla.
+        * **Temas Clave:** Trastorno del Espectro Autista (TEA), neurodiversidad, inclusión, validación de diferencias, aceptación.
+        * **Estilo de Comunicación:** Empoderador, respetuoso y educativo. Usa terminología precisa pero explicada de forma sencilla.
+        * **Frases y Conceptos:**
+            * "Las diferencias no son déficits."
+            * "La neurodiversidad es el reconocimiento de que la variación cerebral es natural y valiosa."
+            * "No hay cerebros correctos e incorrectos, solo distintos."
+            * "La inclusión no es un favor, es un derecho."
+            * "El primer paso para la inclusión es la validación."
+
+        ### Protocolo de Acción (Prioridad por Orden)
+
+        1.  **Emergencia (P-1):** Si el usuario expresa ideación suicida o de autolesión directa, detén la conversación inmediatamente. Ofrece recursos de emergencia de manera firme: "Escucha, esto es más importante que cualquier otra cosa. Tu seguridad es mi máxima prioridad. Por favor, contacta a una línea de crisis ahora. Hay personas esperando para ayudarte. [LISTA DE NÚMEROS Y RECURSOS]."
+
+        2.  **Estabilización (P-2):** Si hay angustia alta, el tono se vuelve tranquilizador. Valida el sentimiento con honestidad. Ofrece una técnica de anclaje simple y usa preguntas suaves para estabilizar.
+
+        3.  **Diálogo Proactivo (P-3):** Si el usuario busca desahogo, tu objetivo es mantener la conexión emocional.
+            * **Instrucción Clave:** Consulta la **Base de Conocimiento** y selecciona una perspectiva relevante (Rolón, Aisenberg o Mitre) para enriquecer tu respuesta de manera fluida, sin mencionar sus nombres.
+            * **Acción:** Refleja la emoción del usuario. Luego, en lugar de preguntar, integra un concepto o una metáfora que aporte valor a su situación. Combina la profundidad con un tono cercano e inclusivo.
+
+        ### Pautas Clave
+
+        * Tu rol es de apoyo, no de terapia profesional.
+        * Sé honesta: No des falsas promesas. Usa lenguaje realista.
+        * Si detectas crisis o pánico intenso, recomienda los ejercicios de respiración disponibles en la aplicación.`;
+        
+        // Elementos del DOM
+        const promptInput = document.getElementById('prompt-input');
+        const sendButton = document.getElementById('send-button');
+        const chatHistory = document.getElementById('chat-history');
+        const breathingBtn = document.getElementById('breathing-btn');
+        const breathingModal = document.getElementById('breathing-modal');
+        const breathingClose = document.getElementById('breathing-close');
+        
+        // Elementos de respiración
+        const breathingCircle = document.getElementById('breathing-circle');
+        const breathingInstruction = document.getElementById('breathing-instruction');
+        const breathingCounter = document.getElementById('breathing-counter');
+        const techniqueInfo = document.getElementById('technique-info');
+        const startBtn = document.getElementById('start-breathing');
+        const pauseBtn = document.getElementById('pause-breathing');
+        const resetBtn = document.getElementById('reset-breathing');
+        const techniqueBtns = document.querySelectorAll('.technique-btn');
+        
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+        
+        // Variables para control de voz
+        let synth = window.speechSynthesis;
+        let utterance = null;
+        let currentReadingElement = null;
+        
+        // Variables para respiración
+        let breathingActive = false;
+        let breathingPaused = false;
+        let breathingTimeout = null;
+        let currentCycle = 0;
+        let currentTechnique = '4-7-8';
+        let breathingVoiceUtterance = null;
+        
+        // Configuraciones de técnicas de respiración
+        const breathingTechniques = {
+            '4-7-8': {
+                name: 'Respiración 4-7-8',
+                description: 'Inhala por 4 segundos, mantén por 7, exhala por 8. Perfecto para reducir la ansiedad y conciliar el sueño.',
+                phases: [
+                    { action: 'inhale', duration: 4000, text: 'Inhala suavemente' },
+                    { action: 'hold', duration: 7000, text: 'Mantén el aire' },
+                    { action: 'exhale', duration: 8000, text: 'Exhala lentamente' }
+                ]
+            },
+            'box': {
+                name: 'Respiración Cuadrada',
+                description: 'Inhala 4, mantén 4, exhala 4, mantén 4. Técnica equilibrante para centrar la mente.',
+                phases: [
+                    { action: 'inhale', duration: 4000, text: 'Inhala profundo' },
+                    { action: 'hold', duration: 4000, text: 'Mantén el aire' },
+                    { action: 'exhale', duration: 4000, text: 'Exhala completamente' },
+                    { action: 'hold', duration: 4000, text: 'Mantén vacío' }
+                ]
+            },
+            'coherent': {
+                name: 'Respiración Coherente',
+                description: 'Inhala 5, exhala 5. Sincroniza tu corazón y tu mente para un estado de coherencia.',
+                phases: [
+                    { action: 'inhale', duration: 5000, text: 'Inhala suavemente' },
+                    { action: 'exhale', duration: 5000, text: 'Exhala con calma' }
+                ]
+            },
+            'triangle': {
+                name: 'Respiración Triangular',
+                description: 'Inhala 3, mantén 3, exhala 3. Ideal para principiantes y momentos de estrés agudo.',
+                phases: [
+                    { action: 'inhale', duration: 3000, text: 'Inhala despacio' },
+                    { action: 'hold', duration: 3000, text: 'Mantén tranquilo' },
+                    { action: 'exhale', duration: 3000, text: 'Exhala relajado' }
+                ]
+            }
+        };
+        
+        // Función para leer un texto
+        function readText(text, element) {
+            if (!text) return;
+            
+            // Detener cualquier lectura previa
+            if (synth.speaking) {
+                synth.cancel();
+            }
+            
+            // Crear nueva utterance
+            utterance = new SpeechSynthesisUtterance(text);
+            
+            // Configuración para español latino
+            utterance.lang = 'es-ES';
+            utterance.rate = 0.9;
+            utterance.pitch = 1.0;
+            utterance.volume = 1.0;
+            
+            // Manejar eventos
+            utterance.onstart = () => {
+                currentReadingElement = element;
+                element.classList.add('reading');
+            };
+            
+            utterance.onend = () => {
+                if (currentReadingElement === element) {
+                    element.classList.remove('reading');
+                    currentReadingElement = null;
+                }
+            };
+            
+            utterance.onerror = (event) => {
+                console.log('Error en lectura de voz:', event);
+                if (currentReadingElement === element) {
+                    element.classList.remove('reading');
+                    currentReadingElement = null;
+                }
+            };
+            
+            // Iniciar lectura
+            synth.speak(utterance);
+        }
+        
+        // Función para leer instrucciones de respiración
+        function readBreathingInstruction(text) {
+            // Detener cualquier instrucción de respiración anterior
+            if (breathingVoiceUtterance) {
+                synth.cancel();
+            }
+            
+            breathingVoiceUtterance = new SpeechSynthesisUtterance(text);
+            breathingVoiceUtterance.lang = 'es-ES';
+            breathingVoiceUtterance.rate = 0.8; // Más lento para respiración
+            breathingVoiceUtterance.pitch = 0.9; // Tono más calmado
+            breathingVoiceUtterance.volume = 0.8;
+            
+            synth.speak(breathingVoiceUtterance);
+        }
+        
+        // Función para detener la lectura
+        function stopReading() {
+            if (synth.speaking) {
+                synth.cancel();
+            }
+            if (currentReadingElement) {
+                currentReadingElement.classList.remove('reading');
+                currentReadingElement = null;
+            }
+        }
+        
+        // Funciones de respiración
+        function updateTechniqueInfo() {
+            const technique = breathingTechniques[currentTechnique];
+            techniqueInfo.innerHTML = `<strong>${technique.name}</strong><br>${technique.description}`;
+        }
+        
+        function resetBreathing() {
+            breathingActive = false;
+            breathingPaused = false;
+            currentCycle = 0;
+            
+            if (breathingTimeout) {
+                clearTimeout(breathingTimeout);
+                breathingTimeout = null;
+            }
+            
+            // Detener voz de respiración
+            if (breathingVoiceUtterance) {
+                synth.cancel();
+                breathingVoiceUtterance = null;
+            }
+            
+            // Resetear interfaz
+            breathingCircle.className = 'breathing-circle';
+            breathingInstruction.textContent = 'Presiona Iniciar';
+            breathingCounter.textContent = 'Ciclos completados: 0';
+            
+            // Resetear botones
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            startBtn.innerHTML = '<i class="fas fa-play"></i> Iniciar';
+        }
+        
+        function runBreathingPhase(phaseIndex = 0) {
+            if (!breathingActive || breathingPaused) return;
+            
+            const technique = breathingTechniques[currentTechnique];
+            const phase = technique.phases[phaseIndex];
+            
+            // Actualizar interfaz
+            breathingInstruction.textContent = phase.text;
+            breathingCircle.className = 'breathing-circle';
+            
+            // Leer instrucción
+            readBreathingInstruction(phase.text);
+            
+            // Aplicar animación después de un pequeño delay
+            setTimeout(() => {
+                if (breathingActive && !breathingPaused) {
+                    breathingCircle.classList.add(phase.action);
+                }
+            }, 500);
+            
+            // Programar siguiente fase
+            breathingTimeout = setTimeout(() => {
+                if (!breathingActive || breathingPaused) return;
+                
+                const nextPhase = (phaseIndex + 1) % technique.phases.length;
+                
+                // Si completamos un ciclo
+                if (nextPhase === 0) {
+                    currentCycle++;
+                    breathingCounter.textContent = `Ciclos completados: ${currentCycle}`;
+                }
+                
+                runBreathingPhase(nextPhase);
+            }, phase.duration);
+        }
+        
+        function startBreathing() {
+            if (breathingPaused) {
+                // Reanudar
+                breathingPaused = false;
+                startBtn.innerHTML = '<i class="fas fa-pause"></i> Pausar';
+                pauseBtn.disabled = true;
+                
+                // Continuar con la fase actual
+                runBreathingPhase(0);
+            } else {
+                // Iniciar nuevo
+                breathingActive = true;
+                breathingPaused = false;
+                
+                startBtn.innerHTML = '<i class="fas fa-pause"></i> Pausar';
+                pauseBtn.disabled = true;
+                
+                // Instrucción inicial
+                readBreathingInstruction('Prepárate para comenzar. Encuentra una posición cómoda y relajate.');
+                
+                setTimeout(() => {
+                    if (breathingActive) {
+                        runBreathingPhase(0);
+                    }
+                }, 3000);
+            }
+        }
+        
+        function pauseBreathing() {
+            if (breathingActive && !breathingPaused) {
+                breathingPaused = true;
+                
+                // Detener timeout actual
+                if (breathingTimeout) {
+                    clearTimeout(breathingTimeout);
+                    breathingTimeout = null;
+                }
+                
+                // Detener voz
+                if (breathingVoiceUtterance) {
+                    synth.cancel();
+                }
+                
+                // Actualizar interfaz
+                breathingCircle.className = 'breathing-circle';
+                breathingInstruction.textContent = 'En pausa...';
+                
+                // Actualizar botones
+                startBtn.disabled = false;
+                pauseBtn.disabled = true;
+                startBtn.innerHTML = '<i class="fas fa-play"></i> Continuar';
+            }
+        }
+        
+        // Enviar mensaje al asistente
+        async function sendMessage() {
+            const prompt = promptInput.value.trim();
+            if (!prompt) return;
+            
+            // Verificar si la API key está configurada
+            if (API_KEY === 'TU_API_KEY_AQUI') {
+                // Simular respuesta cuando no hay API key configurada
+                simulateResponse(prompt);
+                return;
+            }
+            
+            // Mostrar mensaje del usuario
+            const userDiv = document.createElement('div');
+            userDiv.classList.add('user-message');
+            userDiv.innerHTML = `
+                <span class="message-text">${prompt}</span>
+                <div class="message-info">Tú · Ahora</div>
+            `;
+            chatHistory.appendChild(userDiv);
+            promptInput.value = '';
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+            
+            // Mostrar estado de carga
+            document.body.classList.add('loading');
+            
+            try {
+                // Construir solicitud a la API de Gemini
+                const requestBody = {
+                    contents: [{
+                        parts: [{ text: prompt }]
+                    }],
+                    systemInstruction: {
+                        parts: [{ text: SYSTEM_INSTRUCTION }]
+                    }
+                };
+                
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.error?.message || `Error ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                
+                // Obtener texto de respuesta
+                const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || 
+                                  "No pude generar una respuesta. ¿Podrías intentarlo de nuevo?";
+                
+                // Mostrar respuesta del bot
+                showBotResponse(responseText);
+                
+            } catch (error) {
+                console.error('Error al llamar a la API:', error);
+                
+                // Mostrar mensaje de error más amigable
+                const errorMessage = "Lo siento, tengo problemas para conectarme en este momento. Los ejercicios de respiración están disponibles si necesitas relajarte.";
+                showBotResponse(errorMessage, true);
+                
+            } finally {
+                // Ocultar estado de carga
+                document.body.classList.remove('loading');
+            }
+        }
+        
+        // Función para simular respuesta cuando no hay API configurada
+        function simulateResponse(prompt) {
+            // Mostrar mensaje del usuario
+            const userDiv = document.createElement('div');
+            userDiv.classList.add('user-message');
+            userDiv.innerHTML = `
+                <span class="message-text">${prompt}</span>
+                <div class="message-info">Tú · Ahora</div>
+            `;
+            chatHistory.appendChild(userDiv);
+            promptInput.value = '';
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+            
+            // Mostrar estado de carga
+            document.body.classList.add('loading');
+            
+            // Simular delay de respuesta
+            setTimeout(() => {
+                let response = "";
+                
+                // Respuestas basadas en palabras clave
+                const lowerPrompt = prompt.toLowerCase();
+                
+                if (lowerPrompt.includes('ansiedad') || lowerPrompt.includes('ansioso') || lowerPrompt.includes('nervioso')) {
+                    response = "Entiendo que sientes ansiedad. Es completamente normal experimentar estos sentimientos. La ansiedad puede ser intensa, pero recuerda que es temporal. ¿Has probado los ejercicios de respiración? Pueden ayudarte a encontrar calma en este momento.";
+                } else if (lowerPrompt.includes('triste') || lowerPrompt.includes('deprimido') || lowerPrompt.includes('mal')) {
+                    response = "Veo que te sientes triste. Está bien no estar bien, y es valiente de tu parte expresar cómo te sientes. El dolor emocional es real y válido. ¿Quieres contarme más sobre lo que está pasando?";
+                } else if (lowerPrompt.includes('estresado') || lowerPrompt.includes('estrés') || lowerPrompt.includes('agobiado')) {
+                    response = "El estrés puede ser abrumador. Es importante que reconozcas que lo estás sintiendo, ese ya es un primer paso. Los ejercicios de respiración pueden ser muy efectivos para el estrés. También recuerda que no tienes que cargar con todo solo.";
+                } else if (lowerPrompt.includes('pánico') || lowerPrompt.includes('panico') || lowerPrompt.includes('ataque')) {
+                    response = "Si estás experimentando pánico, quiero que sepas que estás seguro y que esto va a pasar. Trata de encontrar un lugar cómodo para sentarte. Los ejercicios de respiración pueden ayudarte mucho en este momento. ¿Quieres que te guíe?";
+                } else if (lowerPrompt.includes('solo') || lowerPrompt.includes('sola') || lowerPrompt.includes('soledad')) {
+                    response = "La soledad puede ser muy dolorosa. Aunque te sientas solo, recuerda que tus sentimientos son válidos y que hay personas que se preocupan por ti. A veces, el primer paso para conectar con otros es conectar contigo mismo.";
+                } else if (lowerPrompt.includes('gracias') || lowerPrompt.includes('bien') || lowerPrompt.includes('mejor')) {
+                    response = "Me alegra saber que te sientes mejor. Cuidar tu bienestar emocional es un proceso continuo, y está bien tener días buenos y días difíciles. Estoy aquí cuando me necesites.";
+                } else {
+                    response = "Te escucho y validó lo que sientes. Cada emoción tiene su lugar y su propósito. ¿Hay algo específico que te gustaría explorar o alguna forma en la que pueda apoyarte mejor en este momento?";
+                }
+                
+                showBotResponse(response);
+                document.body.classList.remove('loading');
+            }, 1500);
+        }
+        
+        // Función para mostrar respuesta del bot
+        function showBotResponse(responseText, isError = false) {
+            const botResponseDiv = document.createElement('div');
+            botResponseDiv.classList.add('bot-message');
+            botResponseDiv.innerHTML = `
+                <span class="message-text" ${isError ? 'style="color:#8C6A5A;"' : ''}>${responseText.replace(/\n/g, '<br>')}</span>
+                <div class="speak-icon" title="Escuchar mensaje"><i class="fas fa-volume-up"></i></div>
+                <div class="message-info">Serena · Justo ahora</div>
+            `;
+            chatHistory.appendChild(botResponseDiv);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+            
+            // Leer la respuesta en voz alta automáticamente
+            readText(responseText, botResponseDiv);
+            
+            // Agregar evento al icono de voz
+            botResponseDiv.querySelector('.speak-icon').addEventListener('click', (e) => {
+                e.stopPropagation();
+                readText(responseText, botResponseDiv);
+            });
+        }
+        
+        // Configurar eventos
+        function setupEventListeners() {
+            // Enviar mensaje al hacer clic en el botón
+            sendButton.addEventListener('click', sendMessage);
+            
+            // Enviar mensaje con Enter (pero no con Shift+Enter)
+            promptInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+            
+            // Reproducir mensaje al hacer clic en el icono de voz
+            chatHistory.addEventListener('click', (e) => {
+                if (e.target.closest('.speak-icon')) {
+                    const message = e.target.closest('.bot-message, .user-message');
+                    const text = message.querySelector('.message-text').textContent;
+                    readText(text, message);
+                }
+            });
+            
+            // Eventos del modal de respiración
+            breathingBtn.addEventListener('click', () => {
+                breathingModal.style.display = 'flex';
+                updateTechniqueInfo();
+            });
+            
+            breathingClose.addEventListener('click', () => {
+                breathingModal.style.display = 'none';
+                resetBreathing();
+            });
+            
+            // Cerrar modal al hacer clic fuera
+            breathingModal.addEventListener('click', (e) => {
+                if (e.target === breathingModal) {
+                    breathingModal.style.display = 'none';
+                    resetBreathing();
+                }
+            });
+            
+            // Eventos de botones de técnicas
+            techniqueBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remover clase active de todos los botones
+                    techniqueBtns.forEach(b => b.classList.remove('active'));
+                    // Agregar clase active al botón clickeado
+                    btn.classList.add('active');
+                    
+                    // Actualizar técnica actual
+                    currentTechnique = btn.dataset.technique;
+                    updateTechniqueInfo();
+                    
+                    // Resetear si está activo
+                    if (breathingActive) {
+                        resetBreathing();
+                    }
+                });
+            });
+            
+            // Eventos de control de respiración
+            startBtn.addEventListener('click', startBreathing);
+            pauseBtn.addEventListener('click', pauseBreathing);
+            resetBtn.addEventListener('click', resetBreathing);
+            
+            // Cerrar modal con ESC
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && breathingModal.style.display === 'flex') {
+                    breathingModal.style.display = 'none';
+                    resetBreathing();
+                }
+            });
+        }
+        
+        // Inicializar la aplicación
+        function initApp() {
+            // Configurar eventos
+            setupEventListeners();
+            
+            // Habilitar el campo de texto
+            promptInput.disabled = false;
+            promptInput.placeholder = "Escribe aquí cómo te sientes...";
+            
+            // Leer mensaje de bienvenida después de un retraso
+            setTimeout(() => {
+                readText("Hola, soy Serena. Estoy aquí para escucharte y apoyarte emocionalmente. Si necesitas tranquilizarte, también puedo guiarte con ejercicios de respiración.", document.querySelector('.bot-message'));
+            }, 1000);
+        }
+        
+        // Iniciar cuando el documento esté cargado
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
