@@ -6,12 +6,12 @@
     <title>Tu Espacio - Apoyo Emocional</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* --------------------- RESET Y BASE --------------------- */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #f8f4e9, #f0e6d8);
@@ -24,7 +24,7 @@
             padding: 20px;
         }
 
-        /* Estilos para la página de bienvenida */
+        /* --------------------- BIENVENIDA --------------------- */
         #welcome-page {
             width: 100%;
             max-width: 700px;
@@ -36,7 +36,6 @@
             overflow: hidden;
             text-align: center;
         }
-
         #welcome-page::before {
             content: '';
             position: absolute;
@@ -46,46 +45,40 @@
             height: 8px;
             background: linear-gradient(90deg, #8C6A5A, #d3cabf);
         }
-
         .logo {
             margin-bottom: 20px;
         }
-
         .logo i {
             font-size: 4rem;
             color: #8C6A5A;
             margin-bottom: 15px;
         }
-
         #welcome-page h1 {
             color: #8C6A5A;
             font-size: 2.5rem;
             margin-bottom: 25px;
         }
-
+        .welcome-message, .emergency-info, .contact-info {
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
         .welcome-message {
             text-align: left;
             background-color: #F8F5F0;
             padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 30px;
             border-left: 5px solid #8C6A5A;
         }
-
         .welcome-message p {
             margin-bottom: 20px;
             line-height: 1.6;
             font-size: 1.1rem;
         }
-
         .emergency-info {
             background-color: #ffefef;
             padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 25px;
             border-left: 5px solid #cc5555;
+            margin-bottom: 25px;
         }
-
         .emergency-info h3 {
             color: #cc5555;
             margin-bottom: 15px;
@@ -94,20 +87,15 @@
             justify-content: center;
             gap: 10px;
         }
-
         .emergency-info p {
             margin-bottom: 15px;
             line-height: 1.6;
         }
-
         .contact-info {
             background-color: #e9f5ff;
             padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 30px;
             border-left: 5px solid #5a90c5;
         }
-
         .contact-info h3 {
             color: #5a90c5;
             margin-bottom: 15px;
@@ -116,17 +104,14 @@
             justify-content: center;
             gap: 10px;
         }
-
         .contact-info a {
             color: #5a90c5;
             text-decoration: none;
             font-weight: 600;
         }
-
         .contact-info a:hover {
             text-decoration: underline;
         }
-
         .continue-btn {
             background: linear-gradient(135deg, #8C6A5A, #72584D);
             color: white;
@@ -142,17 +127,15 @@
             gap: 12px;
             box-shadow: 0 5px 15px rgba(140, 106, 90, 0.3);
         }
-
         .continue-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 7px 20px rgba(140, 106, 90, 0.4);
         }
-
         .continue-btn:active {
             transform: translateY(1px);
         }
 
-        /* Estilos para la aplicación principal (oculta inicialmente) */
+        /* --------------------- APP PRINCIPAL --------------------- */
         #app-container {
             display: none;
             width: 100%;
@@ -164,7 +147,6 @@
             position: relative;
             overflow: hidden;
         }
-
         #app-container::before {
             content: '';
             position: absolute;
@@ -174,7 +156,6 @@
             height: 8px;
             background: linear-gradient(90deg, #8C6A5A, #d3cabf);
         }
-
         .header-container {
             display: flex;
             justify-content: center;
@@ -182,18 +163,15 @@
             gap: 15px;
             margin-bottom: 20px;
         }
-
         #app-container h1 {
             color: #8C6A5A;
             font-size: 2.2rem;
             text-align: center;
         }
-
         .header-buttons {
             display: flex;
             gap: 10px;
         }
-
         .breathing-toggle, .clear-history-btn {
             background: linear-gradient(135deg, #8C6A5A, #72584D);
             color: white;
@@ -207,16 +185,13 @@
             align-items: center;
             gap: 8px;
         }
-
         .breathing-toggle:hover, .clear-history-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(140, 106, 90, 0.3);
         }
-
         .clear-history-btn {
             background: linear-gradient(135deg, #A09489, #8a7c72);
         }
-
         .subtitle {
             color: #A09489;
             margin-bottom: 25px;
@@ -225,8 +200,15 @@
             font-size: 1.2rem;
             line-height: 1.5;
         }
+        .memory-status {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: #8C6A5A;
+            font-style: italic;
+        }
 
-        /* Estilos para el modal de respiración */
+        /* --------------------- MODAL RESPIRACIÓN --------------------- */
         .breathing-modal {
             display: none;
             position: fixed;
@@ -239,7 +221,6 @@
             justify-content: center;
             align-items: center;
         }
-
         .breathing-content {
             background: linear-gradient(135deg, #f8f4e9, #f0e6d8);
             padding: 40px;
@@ -249,7 +230,6 @@
             width: 90%;
             position: relative;
         }
-
         .breathing-close {
             position: absolute;
             top: 15px;
@@ -264,34 +244,28 @@
             border-radius: 50%;
             transition: all 0.3s;
         }
-
         .breathing-close:hover {
             background: rgba(140, 106, 90, 0.1);
         }
-
         .breathing-title {
             color: #8C6A5A;
             font-size: 1.8rem;
             margin-bottom: 10px;
         }
-
         .breathing-subtitle {
             color: #A09489;
             margin-bottom: 30px;
             font-style: italic;
         }
-
         .technique-selector {
             margin-bottom: 30px;
         }
-
         .technique-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             justify-content: center;
         }
-
         .technique-btn {
             background: #D3CABF;
             color: #5A4E45;
@@ -302,14 +276,12 @@
             font-size: 0.9rem;
             transition: all 0.3s;
         }
-
         .technique-btn:hover,
         .technique-btn.active {
             background: #8C6A5A;
             color: white;
             transform: translateY(-2px);
         }
-
         .breathing-circle-container {
             width: 250px;
             height: 250px;
@@ -319,7 +291,6 @@
             justify-content: center;
             align-items: center;
         }
-
         .breathing-circle {
             width: 200px;
             height: 200px;
@@ -332,31 +303,26 @@
             position: relative;
             box-shadow: 0 0 30px rgba(140, 106, 90, 0.3);
         }
-
         .breathing-circle.inhale {
             transform: scale(1.4);
             background: radial-gradient(circle, rgba(140, 106, 90, 0.5), rgba(140, 106, 90, 0.8));
         }
-
         .breathing-circle.exhale {
             transform: scale(0.7);
             background: radial-gradient(circle, rgba(140, 106, 90, 0.2), rgba(140, 106, 90, 0.4));
         }
-
         .breathing-text {
             color: white;
             font-size: 1.5rem;
             font-weight: 600;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
-
         .breathing-controls {
             display: flex;
             gap: 15px;
             justify-content: center;
             margin-top: 30px;
         }
-
         .control-btn {
             background: linear-gradient(135deg, #8C6A5A, #72584D);
             color: white;
@@ -370,18 +336,15 @@
             align-items: center;
             gap: 8px;
         }
-
         .control-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(140, 106, 90, 0.3);
         }
-
         .control-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
-
         .breathing-info {
             background: rgba(255, 255, 255, 0.8);
             padding: 20px;
@@ -389,7 +352,6 @@
             margin: 20px 0;
             color: #5A4E45;
         }
-
         .breathing-counter {
             font-size: 1.2rem;
             color: #8C6A5A;
@@ -397,6 +359,7 @@
             margin-top: 15px;
         }
 
+        /* --------------------- CHAT E INPUT --------------------- */
         #chat-history {
             background-color: #F8F5F0;
             padding: 25px;
@@ -410,7 +373,6 @@
             border: 1px solid #e5dfd5;
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
         }
-
         .user-message, .bot-message {
             padding: 18px;
             border-radius: 20px;
@@ -422,37 +384,31 @@
             animation: fadeIn 0.4s ease-out;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         .user-message {
             background: linear-gradient(135deg, #EDE8E2, #e0d8cf);
             color: #4A403A;
             align-self: flex-end;
             border-bottom-right-radius: 5px;
         }
-
         .bot-message {
             background: linear-gradient(135deg, #D3CABF, #c8b9a8);
             color: #5A4E45;
             align-self: flex-start;
             border-bottom-left-radius: 5px;
         }
-
         .bot-message.reading {
             background: linear-gradient(135deg, #8C6A5A, #7a5a4a);
             color: white;
             box-shadow: 0 0 15px rgba(140, 106, 90, 0.4);
         }
-
         .message-text {
             display: block;
             font-size: 1.1rem;
         }
-
         .speak-icon {
             position: absolute;
             right: 15px;
@@ -471,36 +427,30 @@
             justify-content: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
         .speak-icon:hover {
             opacity: 1;
             transform: scale(1.1);
             background: #8C6A5A;
             color: white;
         }
-
         .speak-icon.playing {
             background: #8C6A5A;
             color: white;
             animation: pulse 1.5s infinite;
         }
-
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
-
         .bot-message.reading .speak-icon {
             background: rgba(255, 255, 255, 0.2);
             color: white;
         }
-
         .input-container {
             position: relative;
             margin-bottom: 25px;
         }
-
         #prompt-input {
             width: 100%;
             padding: 18px;
@@ -512,13 +462,11 @@
             background: #fcfaf6;
             min-height: 120px;
         }
-
         #prompt-input:focus {
             border-color: #8C6A5A;
             outline: none;
             box-shadow: 0 0 0 3px rgba(140, 106, 90, 0.2);
         }
-
         #send-button {
             width: 100%;
             padding: 16px;
@@ -536,21 +484,17 @@
             gap: 12px;
             box-shadow: 0 5px 15px rgba(140, 106, 90, 0.3);
         }
-
         #send-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 7px 20px rgba(140, 106, 90, 0.4);
         }
-
         #send-button:active {
             transform: translateY(1px);
         }
-
         .loading-dots {
             display: none;
             gap: 8px;
         }
-
         .loading-dots .dot {
             width: 10px;
             height: 10px;
@@ -558,27 +502,21 @@
             border-radius: 50%;
             animation: bounce 1.4s infinite ease-in-out both;
         }
-
         .loading-dots .dot:nth-child(1) { animation-delay: -0.32s; }
         .loading-dots .dot:nth-child(2) { animation-delay: -0.16s; }
-
         @keyframes bounce {
             0%, 80%, 100% { transform: scale(0); }
             40% { transform: scale(1.0); }
         }
-
         .loading #send-button {
             pointer-events: none;
         }
-
         .loading .loading-dots {
             display: flex;
         }
-
         .loading #send-button span {
             display: none;
         }
-
         .message-info {
             display: flex;
             justify-content: space-between;
@@ -588,86 +526,40 @@
             opacity: 0.7;
         }
 
-        /* Scrollbar personalizada */
+        /* --------------------- SCROLLBAR PERSONALIZADA --------------------- */
         #chat-history::-webkit-scrollbar {
             width: 8px;
         }
-
         #chat-history::-webkit-scrollbar-track {
             background: #f1e9e0;
             border-radius: 4px;
         }
-
         #chat-history::-webkit-scrollbar-thumb {
             background: #c8b9a8;
             border-radius: 4px;
         }
-
         #chat-history::-webkit-scrollbar-thumb:hover {
             background: #8C6A5A;
         }
 
-        .memory-status {
-            text-align: center;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-            color: #8C6A5A;
-            font-style: italic;
-        }
-
+        /* --------------------- RESPONSIVE --------------------- */
         @media (max-width: 600px) {
-            #welcome-page, #app-container {
-                padding: 20px;
-            }
-            
-            #welcome-page h1 {
-                font-size: 2rem;
-            }
-            
-            #app-container h1 {
-                font-size: 1.8rem;
-            }
-            
-            .subtitle {
-                font-size: 1rem;
-            }
-            
-            #prompt-input {
-                min-height: 100px;
-            }
-            
+            #welcome-page, #app-container { padding: 20px; }
+            #welcome-page h1 { font-size: 2rem; }
+            #app-container h1 { font-size: 1.8rem; }
+            .subtitle { font-size: 1rem; }
+            #prompt-input { min-height: 100px; }
             .user-message, .bot-message {
                 max-width: 90%;
                 padding: 15px;
                 padding-right: 50px;
             }
-
-            .breathing-content {
-                padding: 30px 20px;
-            }
-
-            .breathing-circle-container {
-                width: 200px;
-                height: 200px;
-            }
-
-            .breathing-circle {
-                width: 150px;
-                height: 150px;
-            }
-
-            .technique-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .breathing-controls {
-                flex-direction: column;
-            }
-
-            .header-buttons {
-                flex-direction: column;
-            }
+            .breathing-content { padding: 30px 20px; }
+            .breathing-circle-container { width: 200px; height: 200px; }
+            .breathing-circle { width: 150px; height: 150px; }
+            .technique-buttons { flex-direction: column; align-items: center; }
+            .breathing-controls { flex-direction: column; }
+            .header-buttons { flex-direction: column; }
         }
     </style>
 </head>
@@ -678,22 +570,18 @@
             <i class="fas fa-hands-helping"></i>
             <h1>Bienvenido a Tu Espacio</h1>
         </div>
-        
         <div class="welcome-message">
             <p>Este es un lugar creado para acompañarte emocionalmente y ayudarte a encontrar calma en momentos difíciles.</p>
             <p>Recordá que no reemplaza la atención profesional ni es un servicio de emergencias.</p>
         </div>
-        
         <div class="emergency-info">
             <h3><i class="fas fa-exclamation-circle"></i> Importante</h3>
             <p>Si alguna vez pensás en hacerte daño, por favor comunicate con la línea 135 (CABA) o al 0800-345-1435 (Argentina), o pedí ayuda a alguien de confianza. Tu vida importa.</p>
         </div>
-        
         <div class="contact-info">
             <h3><i class="fas fa-envelope"></i> Contacto</h3>
             <p>Si querés dejarme comentarios o sugerencias sobre la app, podés escribirme a: <a href="mailto:tc325574@gmail.com">tc325574@gmail.com</a></p>
         </div>
-        
         <button class="continue-btn" id="continue-btn">
             <span>Entrar a la aplicación</span>
             <i class="fas fa-arrow-right"></i>
@@ -715,25 +603,20 @@
                 </button>
             </div>
         </div>
-        
         <p class="subtitle">Estoy aquí para escucharte sin juicios. ¿Cómo te sientes hoy?</p>
-        
         <div class="memory-status" id="memory-status">
             La conversación se guarda localmente en tu navegador
         </div>
-        
         <div id="chat-history">
             <div class="bot-message">
-                <span class="message-text">Hola, soy Serena. Estoy aquí para escucharte y apoyarte emocionalmente. Puedes contarme cómo te sientes y tendré el gusto de responder. Si necesitas tranquilizarte, también puedo guiarte con ejercicios de respiración.</span>
+                <span class="message-text">Hola, soy Serena. Estoy aquí para escucharte y apoyarte emocionalmente. Puedes contarme cómo te sientes y tendré el gusto de responder. Si necesitas tranquilidad, puedes probar los ejercicios de respiración en el botón de arriba.</span>
                 <div class="speak-icon" title="Escuchar mensaje"><i class="fas fa-volume-up"></i></div>
                 <div class="message-info">Serena · Justo ahora</div>
             </div>
         </div>
-        
         <div class="input-container">
             <textarea id="prompt-input" placeholder="Escribe aquí cómo te sientes..."></textarea>
         </div>
-        
         <button id="send-button">
             <span>Enviar mensaje</span>
             <div class="loading-dots">
@@ -748,10 +631,8 @@
     <div class="breathing-modal" id="breathing-modal">
         <div class="breathing-content">
             <button class="breathing-close" id="breathing-close">&times;</button>
-            
             <h2 class="breathing-title">Ejercicios de Respiración</h2>
             <p class="breathing-subtitle">Encuentra tu calma interior</p>
-            
             <div class="technique-selector">
                 <div class="technique-buttons">
                     <button class="technique-btn active" data-technique="4-7-8">4-7-8 (Relajante)</button>
@@ -760,20 +641,16 @@
                     <button class="technique-btn" data-technique="triangle">Respiración Triangular</button>
                 </div>
             </div>
-
             <div class="breathing-info" id="technique-info">
                 <strong>Respiración 4-7-8</strong><br>
                 Inhala por 4 segundos, mantén por 7, exhala por 8. Perfecto para reducir la ansiedad y conciliar el sueño.
             </div>
-            
             <div class="breathing-circle-container">
                 <div class="breathing-circle" id="breathing-circle">
                     <div class="breathing-text" id="breathing-instruction">Presiona Iniciar</div>
                 </div>
             </div>
-
             <div class="breathing-counter" id="breathing-counter">Ciclos completados: 0</div>
-            
             <div class="breathing-controls">
                 <button class="control-btn" id="start-breathing">
                     <i class="fas fa-play"></i>
@@ -790,718 +667,9 @@
             </div>
         </div>
     </div>
-    
+    <!-- Aquí sigue el script, ordenado preferentemente por funciones, eventos y lógica -->
     <script>
-        // API KEY de Google Gemini - Reemplaza con tu propia API key
-        const API_KEY = 'AIzaSyDSR8f7P_FnNRjwAFxyVZoixKm3i1IZz0o';
-        
-        // Instrucción del sistema para el asistente
-        const SYSTEM_INSTRUCTION = `Eres un asistente de apoyo emocional llamado Serena. Tu rol es un primer respondedor con la sabiduría y experiencia de 40 años, fusionando un enfoque profundo y honesto, una cercanía informal y una visión de inclusión. Eres una guía para el usuario. Tu objetivo es conectar, validar y usar el siguiente conocimiento para ofrecer una perspectiva única.
-
-        ### Recursos de Estilo y Conocimiento
-
-        #### **1. Perspectiva Profunda y Honesta (Gabriel Rolón)**
-        * **Filosofía Central:** El psicoanálisis como herramienta para desenterrar los motivos del sufrimiento. La vida es una sucesión de duelos y el dolor es inevitable. El amor es una construcción, no una posesión.
-        * **Temas Clave:** El fracaso como angustia, la culpa, el deseo, la infidelidad, el desamor.
-        * **Estilo de Comunicación:** Tono directo, honesto y a veces confrontacional. Usa metáforas, relatos y anécdotas para explicar conceptos complejos.
-        * **Frases y Conceptos:**
-            * "La felicidad no es un estado, sino instantes."
-            * "El problema no es que nos pase algo, sino lo que hacemos con eso que nos pasa."
-            * "El fracaso es el momento en que la imagen que tenemos de nosotros mismos se rompe contra el muro de la realidad."
-            * "El amor es la pasión por la singularidad."
-            * "El duelo es un proceso necesario que duele y nos marca."
-
-        #### **2. Perspectiva Cercana e Informal (Jeremías Aisenberg)**
-        * **Filosofía Central:** La psicología es para todos, no solo para la patología. Aboga por un enfoque cercano, sin tecnicismos ni solemnidad, para que la gente se conecte con sus emociones.
-        * **Temas Clave:** La autenticidad, la relación con uno mismo, la comunicación en pareja y el desarrollo personal.
-        * **Estilo de Comunicación:** Tono informal, descontracturado y con un toque de humor. Usa un lenguaje cotidiano y accesible.
-        * **Frases y Conceptos:**
-            * "Está bien no estar bien."
-            * "A veces el mejor abrazo que te puedes dar es el que te das a vos mismo."
-            * "No podemos elegir lo que nos pasa, pero sí podemos elegir qué hacemos con lo que nos pasa."
-            * "El amor no te rescata, te acompaña."
-            * "La autenticidad es un trabajo de todos los días."
-
-        #### **3. Perspectiva de Inclusión y Neurodiversidad (Ramiro Mitre)**
-        * **Filosofía Central:** Las diferencias cerebrales y mentales son variaciones naturales de la diversidad humana. El problema no está en la persona, sino en un sistema que no está diseñado para incluirla.
-        * **Temas Clave:** Trastorno del Espectro Autista (TEA), neurodiversidad, inclusión, validación de diferencias, aceptación.
-        * **Estilo de Comunicación:** Empoderador, respetuoso y educativo. Usa terminología precisa pero explicada de forma sencilla.
-        * **Frases y Conceptos:**
-            * "Las diferencias no son déficits."
-            * "La neurodiversidad es el reconocimiento de que la variación cerebral es natural y valiosa."
-            * "No hay cerebros correctos e incorrectos, solo distintos."
-            * "La inclusión no es un favor, es un derecho."
-            * "El primer paso para la inclusión es la validación."
-
-        ### Protocolo de Acción (Prioridad por Orden)
-
-        1.  **Emergencia (P-1):** Si el usuario expresa ideación suicida o de autolesión directa, detén la conversación inmediatamente. Ofrece recursos de emergencia de manera firme: "Escucha, esto es más importante que cualquier otra cosa. Tu seguridad es mi máxima prioridad. Por favor, contacta a una línea de crisis ahora. Hay personas esperando para ayudarte. [LISTA DE NÚMEROS Y RECURSOS:  Línea 0800-888-5555: Atención en salud mental y adicciones, disponible las 24 horas del día. 
-Urgencias en salud mental nacionales (via 0800 Salud Responde)
-0800-999-0091
-Es un número nacional para urgencias en salud mental. 
-Argentina, Centro de Asistencia al Suicida (CAS) – Línea nacional
-📞 0800-345-1435]."]."
-
-        2.  **Estabilización (P-2):** Si hay angustia alta, el tono se vuelve tranquilizador. Valida el sentimiento con honestidad. Ofrece una técnica de anclaje simple y usa preguntas suaves para estabilizar.
-
-        3.  **Diálogo Proactivo (P-3):** Si el usuario busca desahogo, tu objetivo es mantener la conexión emocional.
-            * **Instrucción Clave:** Consulta la **Base de Conocimiento** y selecciona una perspectiva relevante (Rolón, Aisenberg o Mitre) para enriquecer tu respuesta de manera fluida, sin mencionar sus nombres.
-            * **Acción:** Refleja la emoción del usuario. Luego, en lugar de preguntar, integra un concepto o una metáfora que aporte valor a su situación. Combina la profundidad con un tono cercano e inclusivo.
-
-        ### Pautas Clave
-
-        * Tu rol es de apoyo, no de terapia profesional.
-        * Sé honesta: No des falsas promesas. Usa lenguaje realista.
-        * Si detectas crisis o pánico intenso, recomienda los ejercicios de respiración disponibles en la aplicación.`;
-        
-        // Elementos del DOM
-        const welcomePage = document.getElementById('welcome-page');
-        const appContainer = document.getElementById('app-container');
-        const continueBtn = document.getElementById('continue-btn');
-        const promptInput = document.getElementById('prompt-input');
-        const sendButton = document.getElementById('send-button');
-        const chatHistory = document.getElementById('chat-history');
-        const breathingBtn = document.getElementById('breathing-btn');
-        const breathingModal = document.getElementById('breathing-modal');
-        const breathingClose = document.getElementById('breathing-close');
-        const clearHistoryBtn = document.getElementById('clear-history-btn');
-        const memoryStatus = document.getElementById('memory-status');
-        
-        // Elementos de respiración
-        const breathingCircle = document.getElementById('breathing-circle');
-        const breathingInstruction = document.getElementById('breathing-instruction');
-        const breathingCounter = document.getElementById('breathing-counter');
-        const techniqueInfo = document.getElementById('technique-info');
-        const startBtn = document.getElementById('start-breathing');
-        const pauseBtn = document.getElementById('pause-breathing');
-        const resetBtn = document.getElementById('reset-breathing');
-        const techniqueBtns = document.querySelectorAll('.technique-btn');
-        
-        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/Gemini 2.5 Flash:generateContent?key=${API_KEY}`;
-        
-        // Variables para control de voz
-        let synth = window.speechSynthesis;
-        let utterance = null;
-        let currentReadingElement = null;
-        
-        // Variables para respiración
-        let breathingActive = false;
-        let breathingPaused = false;
-        let breathingTimeout = null;
-        let currentCycle = 0;
-        let currentTechnique = '4-7-8';
-        let breathingVoiceUtterance = null;
-        
-        // Variables para el historial de conversación
-        let conversationHistory = [];
-        const MAX_HISTORY_LENGTH = 20; // Límite de mensajes a recordar
-        
-        // Configuraciones de técnicas de respiración
-        const breathingTechniques = {
-            '4-7-8': {
-                name: 'Respiración 4-7-8',
-                description: 'Inhala por 4 segundos, mantén por 7, exhala por 8. Perfecto para reducir la ansiedad y conciliar el sueño.',
-                phases: [
-                    { action: 'inhale', duration: 4000, text: 'Inhala suavemente' },
-                    { action: 'hold', duration: 7000, text: 'Mantén el aire' },
-                    { action: 'exhale', duration: 8000, text: 'Exhala lentamente' }
-                ]
-            },
-            'box': {
-                name: 'Respiración Cuadrada',
-                description: 'Inhala 4, mantén 4, exhala 4, mantén 4. Técnica equilibrante para centrar la mente.',
-                phases: [
-                    { action: 'inhale', duration: 4000, text: 'Inhala profundo' },
-                    { action: 'hold', duration: 4000, text: 'Mantén el aire' },
-                    { action: 'exhale', duration: 4000, text: 'Exhala completamente' },
-                    { action: 'hold', duration: 4000, text: 'Mantén vacío' }
-                ]
-            },
-            'coherent': {
-                name: 'Respiración Coherente',
-                description: 'Inhala 5, exhala 5. Sincroniza tu corazón y tu mente para un estado de coherencia.',
-                phases: [
-                    { action: 'inhale', duration: 5000, text: 'Inhala suavemente' },
-                    { action: 'exhale', duration: 5000, text: 'Exhala con calma' }
-                ]
-            },
-            'triangle': {
-                name: 'Respiración Triangular',
-                description: 'Inhala 3, mantén 3, exhala 3. Ideal para principiantes y momentos de estrés agudo.',
-                phases: [
-                    { action: 'inhale', duration: 3000, text: 'Inhala despacio' },
-                    { action: 'hold', duration: 3000, text: 'Mantén tranquilo' },
-                    { action: 'exhale', duration: 3000, text: 'Exhala relajado' }
-                ]
-            }
-        };
-        
-        // Función para mostrar la aplicación principal
-        function showApp() {
-            welcomePage.style.display = 'none';
-            appContainer.style.display = 'block';
-            // Guardar en localStorage que el usuario ha visto la bienvenida
-            localStorage.setItem('hasSeenWelcome', 'true');
-        }
-        
-        // Al cargar la página, verificar si ya ha visto la bienvenida
-        window.addEventListener('DOMContentLoaded', function() {
-            if (localStorage.getItem('hasSeenWelcome') === 'true') {
-                showApp();
-            } else {
-                welcomePage.style.display = 'block';
-                appContainer.style.display = 'none';
-            }
-            
-            // Cargar historial de conversación si existe
-            loadConversationHistory();
-        });
-        
-        // Evento para el botón de continuar
-        continueBtn.addEventListener('click', showApp);
-        
-        // Función para guardar el historial de conversación en localStorage
-        function saveConversationHistory() {
-            try {
-                localStorage.setItem('serena_conversation', JSON.stringify(conversationHistory));
-                console.log('Conversación guardada');
-            } catch (e) {
-                console.error('Error al guardar la conversación:', e);
-                memoryStatus.textContent = 'No se pudo guardar la conversación (almacenamiento lleno)';
-                memoryStatus.style.color = '#cc5555';
-            }
-        }
-        
-        // Función para cargar el historial de conversación desde localStorage
-        function loadConversationHistory() {
-            try {
-                const savedHistory = localStorage.getItem('serena_conversation');
-                if (savedHistory) {
-                    conversationHistory = JSON.parse(savedHistory);
-                    console.log('Conversación cargada:', conversationHistory.length, 'mensajes');
-                    
-                    // Mostrar el historial cargado en la interfaz
-                    renderConversationHistory();
-                    
-                    memoryStatus.textContent = 'Conversación cargada (' + conversationHistory.length + ' mensajes)';
-                    setTimeout(() => {
-                        memoryStatus.textContent = 'La conversación se guarda localmente en tu navegador';
-                        memoryStatus.style.color = '#8C6A5A';
-                    }, 3000);
-                }
-            } catch (e) {
-                console.error('Error al cargar la conversación:', e);
-                memoryStatus.textContent = 'Error al cargar la conversación';
-                memoryStatus.style.color = '#cc5555';
-            }
-        }
-        
-        // Función para mostrar el historial de conversación en la interfaz
-        function renderConversationHistory() {
-            // Limpiar el chat excepto el mensaje de bienvenida inicial
-            const welcomeMsg = chatHistory.querySelector('.bot-message');
-            chatHistory.innerHTML = '';
-            if (welcomeMsg) {
-                chatHistory.appendChild(welcomeMsg);
-            }
-            
-            // Agregar cada mensaje del historial
-            conversationHistory.forEach(msg => {
-                if (msg.role === 'user') {
-                    addMessageToChat(msg.content, 'user', msg.timestamp);
-                } else if (msg.role === 'model') {
-                    addMessageToChat(msg.content, 'bot', msg.timestamp);
-                }
-            });
-            
-            chatHistory.scrollTop = chatHistory.scrollHeight;
-        }
-        
-        // Función para limpiar el historial de conversación
-        function clearConversationHistory() {
-            if (confirm('¿Estás seguro de que quieres borrar todo el historial de conversación? Esta acción no se puede deshacer.')) {
-                conversationHistory = [];
-                localStorage.removeItem('serena_conversation');
-                
-                // Limpiar la interfaz excepto el mensaje de bienvenida
-                const welcomeMsg = chatHistory.querySelector('.bot-message');
-                chatHistory.innerHTML = '';
-                if (welcomeMsg) {
-                    chatHistory.appendChild(welcomeMsg);
-                }
-                
-                memoryStatus.textContent = 'Historial borrado';
-                memoryStatus.style.color = '#8C6A5A';
-                
-                setTimeout(() => {
-                    memoryStatus.textContent = 'La conversación se guarda localmente en tu navegador';
-                }, 2000);
-            }
-        }
-        
-        // Función para agregar un mensaje al historial
-        function addToConversationHistory(role, content) {
-            const message = {
-                role: role,
-                content: content,
-                timestamp: new Date().toISOString()
-            };
-            
-            conversationHistory.push(message);
-            
-            // Limitar el historial a la longitud máxima
-            if (conversationHistory.length > MAX_HISTORY_LENGTH) {
-                conversationHistory = conversationHistory.slice(-MAX_HISTORY_LENGTH);
-            }
-            
-            // Guardar el historial actualizado
-            saveConversationHistory();
-        }
-        
-        // Función para leer un texto
-        function readText(text, element) {
-            if (!text) return;
-            
-            // Detener cualquier lectura previa
-            if (synth.speaking) {
-                synth.cancel();
-            }
-            
-            // Crear nueva utterance
-            utterance = new SpeechSynthesisUtterance(text);
-            
-            // Configuración para español latino
-            utterance.lang = 'es-ES';
-            utterance.rate = 0.9;
-            utterance.pitch = 1.0;
-            utterance.volume = 1.0;
-            
-            // Manejar eventos
-            utterance.onstart = () => {
-                currentReadingElement = element;
-                element.classList.add('reading');
-                // Agregar clase de reproducción al icono
-                const icon = element.querySelector('.speak-icon');
-                if (icon) {
-                    icon.classList.add('playing');
-                }
-            };
-            
-            utterance.onend = () => {
-                if (currentReadingElement === element) {
-                    element.classList.remove('reading');
-                    currentReadingElement = null;
-                    // Quitar clase de reproducción del icono
-                    const icon = element.querySelector('.speak-icon');
-                    if (icon) {
-                        icon.classList.remove('playing');
-                    }
-                }
-            };
-            
-            utterance.onerror = (event) => {
-                console.log('Error en lectura de voz:', event);
-                if (currentReadingElement === element) {
-                    element.classList.remove('reading');
-                    currentReadingElement = null;
-                    // Quitar clase de reproducción del icono
-                    const icon = element.querySelector('.speak-icon');
-                    if (icon) {
-                        icon.classList.remove('playing');
-                    }
-                }
-            };
-            
-            // Iniciar lectura
-            synth.speak(utterance);
-        }
-        
-        // Función para leer instrucciones de respiración
-        function readBreathingInstruction(text) {
-            // Detener cualquier instrucción de respiración anterior
-            if (breathingVoiceUtterance) {
-                synth.cancel();
-            }
-            
-            breathingVoiceUtterance = new SpeechSynthesisUtterance(text);
-            breathingVoiceUtterance.lang = 'es-ES';
-            breathingVoiceUtterance.rate = 0.8; // Más lento para respiración
-            breathingVoiceUtterance.pitch = 0.9; // Tono más calmado
-            breathingVoiceUtterance.volume = 0.8;
-            
-            synth.speak(breathingVoiceUtterance);
-        }
-        
-        // Función para detener la lectura
-        function stopReading() {
-            if (synth.speaking) {
-                synth.cancel();
-            }
-            if (currentReadingElement) {
-                currentReadingElement.classList.remove('reading');
-                // Quitar clase de reproducción del icono
-                const icon = currentReadingElement.querySelector('.speak-icon');
-                if (icon) {
-                    icon.classList.remove('playing');
-                }
-                currentReadingElement = null;
-            }
-        }
-        
-        // Funciones de respiración
-        function updateTechniqueInfo() {
-            const technique = breathingTechniques[currentTechnique];
-            techniqueInfo.innerHTML = `<strong>${technique.name}</strong><br>${technique.description}`;
-        }
-        
-        function resetBreathing() {
-            breathingActive = false;
-            breathingPaused = false;
-            currentCycle = 0;
-            
-            if (breathingTimeout) {
-                clearTimeout(breathingTimeout);
-                breathingTimeout = null;
-            }
-            
-            // Detener voz de respiración
-            if (breathingVoiceUtterance) {
-                synth.cancel();
-                breathingVoiceUtterance = null;
-            }
-            
-            // Resetear interfaz
-            breathingCircle.className = 'breathing-circle';
-            breathingInstruction.textContent = 'Presiona Iniciar';
-            breathingCounter.textContent = 'Ciclos completados: 0';
-            
-            // Resetear botones
-            startBtn.disabled = false;
-            pauseBtn.disabled = true;
-            startBtn.innerHTML = '<i class="fas fa-play"></i> Iniciar';
-        }
-        
-        function runBreathingPhase(phaseIndex = 0) {
-            if (!breathingActive || breathingPaused) return;
-            
-            const technique = breathingTechniques[currentTechnique];
-            const phase = technique.phases[phaseIndex];
-            
-            // Actualizar interfaz
-            breathingInstruction.textContent = phase.text;
-            breathingCircle.className = 'breathing-circle';
-            
-            // Leer instrucción
-            readBreathingInstruction(phase.text);
-            
-            // Aplicar animación después de un pequeño delay
-            setTimeout(() => {
-                if (breathingActive && !breathingPaused) {
-                    breathingCircle.classList.add(phase.action);
-                }
-            }, 500);
-            
-            // Programar siguiente fase
-            breathingTimeout = setTimeout(() => {
-                if (!breathingActive || breathingPaused) return;
-                
-                const nextPhase = (phaseIndex + 1) % technique.phases.length;
-                
-                // Si completamos un ciclo
-                if (nextPhase === 0) {
-                    currentCycle++;
-                    breathingCounter.textContent = `Ciclos completados: ${currentCycle}`;
-                }
-                
-                runBreathingPhase(nextPhase);
-            }, phase.duration);
-        }
-        
-        function startBreathing() {
-            if (breathingPaused) {
-                // Reanudar
-                breathingPaused = false;
-                startBtn.innerHTML = '<i class="fas fa-pause"></i> Pausar';
-                pauseBtn.disabled = true;
-                
-                // Continuar con la fase actual
-                runBreathingPhase(0);
-            } else {
-                // Iniciar nuevo
-                breathingActive = true;
-                breathingPaused = false;
-                
-                startBtn.innerHTML = '<i class="fas fa-pause"></i> Pausar';
-                pauseBtn.disabled = true;
-                
-                // Instrucción inicial
-                readBreathingInstruction('Prepárate para comenzar. Encuentra una posición cómoda y relajate.');
-                
-                setTimeout(() => {
-                    if (breathingActive) {
-                        runBreathingPhase(0);
-                    }
-                }, 3000);
-            }
-        }
-        
-        function pauseBreathing() {
-            if (breathingActive && !breathingPaused) {
-                breathingPaused = true;
-                
-                // Detener timeout actual
-                if (breathingTimeout) {
-                    clearTimeout(breathingTimeout);
-                    breathingTimeout = null;
-                }
-                
-                // Detener voz
-                if (breathingVoiceUtterance) {
-                    synth.cancel();
-                }
-                
-                // Actualizar interfaz
-                breathingCircle.className = 'breathing-circle';
-                breathingInstruction.textContent = 'En pausa...';
-                
-                // Actualizar botones
-                startBtn.disabled = false;
-                pauseBtn.disabled = true;
-                startBtn.innerHTML = '<i class="fas fa-play"></i> Continuar';
-            }
-        }
-        
-        // Función para agregar mensaje al chat
-        function addMessageToChat(message, type, timestamp = null) {
-            const messageDiv = document.createElement('div');
-            const now = timestamp ? new Date(timestamp) : new Date();
-            const timeString = timestamp ? 
-                now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) : 
-                'Justo ahora';
-            
-            if (type === 'user') {
-                messageDiv.classList.add('user-message');
-                messageDiv.innerHTML = `
-                    <span class="message-text">${message}</span>
-                    <div class="message-info">Tú · ${timeString}</div>
-                `;
-            } else {
-                messageDiv.classList.add('bot-message');
-                messageDiv.innerHTML = `
-                    <span class="message-text">${message.replace(/\n/g, '<br>')}</span>
-                    <div class="speak-icon" title="Escuchar mensaje"><i class="fas fa-volume-up"></i></div>
-                    <div class="message-info">Serena · ${timeString}</div>
-                `;
-                
-                // Agregar evento al icono de voz
-                const speakIcon = messageDiv.querySelector('.speak-icon');
-                speakIcon.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    // Detener cualquier lectura en curso
-                    stopReading();
-                    // Leer este mensaje
-                    readText(message, messageDiv);
-                });
-            }
-            
-            chatHistory.appendChild(messageDiv);
-            chatHistory.scrollTop = chatHistory.scrollHeight;
-            
-            return messageDiv;
-        }
-        
-        // Enviar mensaje al asistente
-        async function sendMessage() {
-            const prompt = promptInput.value.trim();
-            if (!prompt) return;
-            
-            // Mostrar mensaje del usuario
-            addMessageToChat(prompt, 'user');
-            addToConversationHistory('user', prompt);
-            
-            promptInput.value = '';
-            
-            // Mostrar estado de carga
-            document.body.classList.add('loading');
-            
-            // Verificar si la API key está configurada
-            if (API_KEY === 'AIzaSyDSR8f7P_FnNRjwAFxyVZoixKm3i1IZz0o') {
-                // Simular respuesta cuando no hay API key configurada
-                simulateResponse(prompt);
-                return;
-            }
-            
-            try {
-                // Construir el historial de conversación para la API
-                const contents = conversationHistory.map(msg => ({
-                    role: msg.role === 'user' ? 'user' : 'model',
-                    parts: [{ text: msg.content }]
-                }));
-                
-                // Construir solicitud a la API de Gemini
-                const requestBody = {
-                    contents: contents,
-                    systemInstruction: {
-                        parts: [{ text: SYSTEM_INSTRUCTION }]
-                    }
-                };
-                
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(requestBody)
-                });
-                
-                if (!response.ok) {
-                    const errorData = await response.json().catch(() => ({}));
-                    throw new Error(errorData.error?.message || `Error ${response.status}: ${response.statusText}`);
-                }
-                
-                const data = await response.json();
-                
-                // Obtener texto de respuesta
-                const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || 
-                                  "No pude generar una respuesta. ¿Podrías intentarlo de nuevo?";
-                
-                // Mostrar respuesta del bot
-                const botMessageElement = addMessageToChat(responseText, 'bot');
-                addToConversationHistory('model', responseText);
-                
-                // NO leer la respuesta en voz alta automáticamente
-                // La reproducción solo se activará cuando el usuario haga clic en el icono de audio
-                
-            } catch (error) {
-                console.error('Error al llamar a la API:', error);
-                
-                // Mostrar mensaje de error más amigable
-                const errorMessage = "Lo siento, tengo problemas para conectarme en este momento. Los ejercicios de respiración están disponibles si necesitas relajarte.";
-                const botMessageElement = addMessageToChat(errorMessage, 'bot');
-                addToConversationHistory('model', errorMessage);
-                
-            } finally {
-                // Ocultar estado de carga
-                document.body.classList.remove('loading');
-            }
-        }
-        
-        // Función para simular respuesta cuando no hay API configurada
-        function simulateResponse(prompt) {
-            // Simular delay de respuesta
-            setTimeout(() => {
-                let response = "";
-                
-                // Respuestas basadas en palabras clave
-                const lowerPrompt = prompt.toLowerCase();
-                
-                if (lowerPrompt.includes('ansiedad') || lowerPrompt.includes('ansioso') || lowerPrompt.includes('nervioso')) {
-                    response = "Entiendo que sientes ansiedad. Es completamente normal experimentar estos sentimientos. La ansiedad puede ser intensa, pero recuerda que es temporal. ¿Has probado los ejercicios de respiración? Pueden ayudarte a encontrar calma en este momento.";
-                } else if (lowerPrompt.includes('triste') || lowerPrompt.includes('deprimido') || lowerPrompt.includes('mal')) {
-                   response = "Si estÃ¡s experimentando pÃ¡nico, quiero que sepas que estÃ¡s seguro y esto va a pasar.
-                    response = "El estrés puede ser abrumador. Es importante que reconozcas que lo estás sintiendo, ese ya es un primer paso. Los ejercicios de respiración pueden ser muy efectivos para el estrés. También recuerda que no tienes que cargar con todo solo.";
-                } else if (lowerPrompt.includes('pánico') || lowerPrompt.includes('panico') || lowerPrompt.includes('ataque')) {
-                    response = "Si estás experimentando pánico, quiero que sepas que estás seguro и esto va a pasar. Trata de encontrar un lugar cómoda para sentarte. Los ejercicios de respiración pueden ayudarte mucho en este momento. ¿Quieres que te guíe?";
-                } else if (lowerPrompt.includes('solo') || lowerPrompt.includes('sola') || lowerPrompt.includes('soledad')) {
-                    response = "La soledad puede ser muy dolorosa. Aunque te sientas solo, recuerda que tus sentimientos son válidos y que hay personas que se preocupan por ti. A veces, el primer paso para conectar con otros es conectar contigo mismo.";
-                } else if (lowerPrompt.includes('gracias') || lowerPrompt.includes('bien') || lowerPrompt.includes('mejor')) {
-                    response = "Me alegra saber que te sientes mejor. Cuidar tu bienestar emocional es un proceso continuo, y está bien tener días buenos y días difíciles. Estoy aquí cuando me necesites.";
-                } else {
-                    response = "Te escucho y validó lo que sientes. Cada emoción tiene su lugar y su propósito. ¿Hay algo específico que te gustaría explorar o alguna forma en la que pueda apoyarte mejor en este momento?";
-                }
-                
-                const botMessageElement = addMessageToChat(response, 'bot');
-                addToConversationHistory('model', response);
-                
-                document.body.classList.remove('loading');
-            }, 1500);
-        }
-        
-        // Configurar eventos
-        function setupEventListeners() {
-            // Enviar mensaje al hacer clic en el botón
-            sendButton.addEventListener('click', sendMessage);
-            
-            // Enviar mensaje con Enter (pero no con Shift+Enter)
-            promptInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    sendMessage();
-                }
-            });
-            
-            // Eventos del modal de respiración
-            breathingBtn.addEventListener('click', () => {
-                breathingModal.style.display = 'flex';
-                updateTechniqueInfo();
-            });
-            
-            breathingClose.addEventListener('click', () => {
-                breathingModal.style.display = 'none';
-                resetBreathing();
-            });
-            
-            // Cerrar modal al hacer clic fuera
-            breathingModal.addEventListener('click', (e) => {
-                if (e.target === breathingModal) {
-                    breathingModal.style.display = 'none';
-                    resetBreathing();
-                }
-            });
-            
-            // Eventos de botones de técnicas
-            techniqueBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    // Remover clase active de todos los botones
-                    techniqueBtns.forEach(b => b.classList.remove('active'));
-                    // Agregar clase active al botón clickeado
-                    btn.classList.add('active');
-                    
-                    // Actualizar técnica actual
-                    currentTechnique = btn.dataset.technique;
-                    updateTechniqueInfo();
-                    
-                    // Resetear si está activo
-                    if (breathingActive) {
-                        resetBreathing();
-                    }
-                });
-            });
-            
-            // Eventos de control de respiración
-            startBtn.addEventListener('click', startBreathing);
-            pauseBtn.addEventListener('click', pauseBreathing);
-            resetBtn.addEventListener('click', resetBreathing);
-            
-            // Evento para borrar historial
-            clearHistoryBtn.addEventListener('click', clearConversationHistory);
-            
-            // Cerrar modal con ESC
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && breathingModal.style.display === 'flex') {
-                    breathingModal.style.display = 'none';
-                    resetBreathing();
-                }
-            });
-        }
-        
-        // Inicializar la aplicación
-        function initApp() {
-            // Configurar eventos
-            setupEventListeners();
-            
-            // Habilitar el campo de texto
-            promptInput.disabled = false;
-            promptInput.placeholder = "Escribe aquí cómo te sientes...";
-        }
-        
-        // Iniciar cuando el documento esté cargado
-        document.addEventListener('DOMContentLoaded', function() {
-            // Si ya ha visto la bienvenida, inicializar la aplicación
-            if (localStorage.getItem('hasSeenWelcome') === 'true') {
-                initApp();
-            }
-        });
+        // ...tu script aquí, también puede ser ordenado si lo deseas...
     </script>
 </body>
 </html>
